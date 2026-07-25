@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import CreateQuoteAPIView, AcceptQuoteAPIView, PolicyHistoryAPIView
+from .views import CreateQuoteAPIView, AcceptQuoteAPIView, PolicyHistoryAPIView, PolicyListAPIView
 
 urlpatterns = [
     path(
@@ -17,5 +17,11 @@ urlpatterns = [
     path(
         "policies/<int:pk>/history/",
         PolicyHistoryAPIView.as_view(),
+    ),
+
+    path(
+        "policies/",
+        PolicyListAPIView.as_view(),
+        name="policy-list",
     ),
 ]

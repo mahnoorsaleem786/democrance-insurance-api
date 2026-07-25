@@ -34,3 +34,24 @@ class PolicyHistorySerializer(serializers.ModelSerializer):
         model = PolicyHistory
 
         fields = "__all__"
+
+
+class PolicySerializer(serializers.ModelSerializer):
+
+    customer_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Policy
+
+        fields = (
+            "id",
+            "customer",
+            "customer_name",
+            "policy_type",
+            "premium",
+            "cover",
+            "state",
+        )
+
+    def get_customer_name(self, obj):
+        return f"{obj.customer.first_name} {obj.customer.last_name}"

@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 from customers.models import Customer
 from .models import Policy, PolicyHistory
-from .serializers import QuoteSerializer, AcceptQuoteSerializer, PolicyHistorySerializer
+from .serializers import QuoteSerializer, AcceptQuoteSerializer, PolicyHistorySerializer, PolicySerializer
 from .services import QuoteService
 from .history_service import PolicyHistoryService
 
@@ -113,3 +113,18 @@ class PolicyHistoryAPIView(ListAPIView):
         return PolicyHistory.objects.filter(
             policy_id=self.kwargs["pk"]
         )
+
+
+class PolicyListAPIView(ListAPIView):
+    serializer_class = PolicySerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = Policy.objects.select_related("customer")
+
+        policy_type = self.request.query_params.get("type")
+
+        if policy_type:
+            queryset = queryset.filter(policy_type=policy_type)
+
+        return queryset
