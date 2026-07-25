@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from customers.models import Customer
-from .models import Policy
+from .models import Policy, PolicyHistory
 
 
 class QuoteSerializer(serializers.Serializer):
@@ -20,3 +20,17 @@ class QuoteSerializer(serializers.Serializer):
             )
 
         return value
+    
+
+class AcceptQuoteSerializer(serializers.Serializer):
+
+    policy_id = serializers.IntegerField()
+
+
+class PolicyHistorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = PolicyHistory
+
+        fields = "__all__"
