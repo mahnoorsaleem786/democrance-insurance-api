@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Policy
+from .models import Policy, PolicyHistory
 
 
 @admin.register(Policy)
@@ -23,4 +23,15 @@ class PolicyAdmin(admin.ModelAdmin):
     list_filter = (
         "state",
         "policy_type",
+    )
+
+
+@admin.register(PolicyHistory)
+class PolicyHistoryAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "policy",
+        "previous_state",
+        "new_state",
+        "changed_at",
     )
