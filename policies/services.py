@@ -1,45 +1,45 @@
 """Business logic for insurance quote calculations."""
 
 from datetime import date
+from typing import Any
+
+from customers.models import Customer
 
 
 class QuoteService:
-    """Calculates premiums and cover amounts based on customer age."""
+    """Calculate insurance premiums and cover amounts."""
 
     @staticmethod
-    def calculate_age(dob):
-        """Return the customer's age in full years as of today."""
+    def calculate_age(dob: date) -> int:
+        """Return the customer's age in completed years."""
 
         today = date.today()
 
         return (
             today.year
             - dob.year
-            - (
-                (today.month, today.day)
-                < (dob.month, dob.day)
-            )
+            - ((today.month, today.day) < (dob.month, dob.day))
         )
 
     @staticmethod
-    def calculate_quote(customer):
-        """Return premium and cover values for the given customer."""
+    def calculate_quote(customer: Customer) -> dict[str, Any]:
+        """Return the calculated premium and cover for a customer."""
 
         age = QuoteService.calculate_age(customer.dob)
 
         if age < 25:
-            premium = 150
-            cover = 100000
+            return {
+                "premium": 150,
+                "cover": 100000,
+            }
 
-        elif age <= 40:
-            premium = 200
-            cover = 200000
-
-        else:
-            premium = 300
-            cover = 250000
+        if age <= 40:
+            return {
+                "premium": 200,
+                "cover": 200000,
+            }
 
         return {
-            "premium": premium,
-            "cover": cover,
+            "premium": 300,
+            "cover": 250000,
         }

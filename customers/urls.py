@@ -1,16 +1,15 @@
 """URL routes for customer-related API endpoints."""
 
-from django.urls import path
+from django.urls import URLPattern, path
 
 from .views import CreateCustomerAPIView, CustomerListAPIView
 
-urlpatterns = [
+urlpatterns: list[URLPattern] = [
     path(
         "create_customer/",
         CreateCustomerAPIView.as_view(),
         name="create-customer",
     ),
-
     path(
         "customers/",
         CustomerListAPIView.as_view(),

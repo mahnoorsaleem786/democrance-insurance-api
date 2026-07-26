@@ -1,0 +1,12 @@
+[2026-07-26 10:31:10,109] INFO common.logger Customer created successfully. Customer ID: 1
+[2026-07-26 10:31:10,127] WARNING django.request Bad Request: /api/v1/create_customer/
+[2026-07-26 10:31:10,135] WARNING django.request Bad Request: /api/v1/create_customer/
+[2026-07-26 10:31:10,142] WARNING django.request Bad Request: /api/v1/create_customer/
+[2026-07-26 10:31:13,646] INFO common.logger Quote generated successfully for policy 2.
+[2026-07-26 10:31:14,790] WARNING django.request Bad Request: /api/v1/quote/
+[2026-07-26 10:35:43,177] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-07-26 10:36:09,724] INFO common.logger Customer created successfully. Customer ID: 2
+[2026-07-26 10:36:28,157] WARNING django.request Unauthorized: /api/v1/quote/
+[2026-07-26 10:36:39,093] INFO common.logger Quote generated successfully for policy 2.
+[2026-07-26 10:36:46,223] WARNING django.request Bad Request: /api/v1/quote/accept/
+[2026-07-26 10:36:59,993] INFO common.logger Policy 2 activated successfully.

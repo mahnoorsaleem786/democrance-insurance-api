@@ -9,11 +9,15 @@ class Policy(models.Model):
     """Represents an insurance policy linked to a customer."""
 
     class PolicyType(models.TextChoices):
+        """Supported insurance policy types."""
+
         PERSONAL_ACCIDENT = "personal-accident", "Personal Accident"
         HEALTH = "health", "Health"
         LIFE = "life", "Life"
 
     class PolicyState(models.TextChoices):
+        """Supported policy lifecycle states."""
+
         NEW = "NEW", "New"
         QUOTED = "QUOTED", "Quoted"
         ACTIVE = "ACTIVE", "Active"
@@ -52,7 +56,8 @@ class Policy(models.Model):
     class Meta:
         db_table = "policies"
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Return a human-readable representation of the policy."""
         return f"{self.customer} - {self.policy_type}"
 
 
@@ -71,9 +76,7 @@ class PolicyHistory(models.Model):
         null=True,
     )
 
-    new_state = models.CharField(
-        max_length=20,
-    )
+    new_state = models.CharField(max_length=20)
 
     changed_at = models.DateTimeField(
         auto_now_add=True,
@@ -83,5 +86,9 @@ class PolicyHistory(models.Model):
         db_table = "policy_history"
         ordering = ["changed_at"]
 
-    def __str__(self):
-        return f"{self.policy.id}: {self.previous_state} -> {self.new_state}"
+    def __str__(self) -> str:
+        """Return a human-readable representation of the state transition."""
+        return (
+            f"{self.policy.id}: "
+            f"{self.previous_state} -> {self.new_state}"
+        )

@@ -1,16 +1,22 @@
 """Tests for customer creation API endpoints."""
 
-import datetime
+from datetime import date, timedelta
 
 import pytest
 from rest_framework.test import APIClient
 
+CREATE_CUSTOMER_URL = "/api/v1/create_customer/"
+
+
+@pytest.fixture
+def api_client() -> APIClient:
+    """Return an API client instance."""
+    return APIClient()
+
 
 @pytest.mark.django_db
-def test_create_customer_success():
+def test_create_customer_success(api_client: APIClient) -> None:
     """A valid payload should create a customer and return HTTP 201."""
-
-    client = APIClient()
 
     payload = {
         "first_name": "Ben",
@@ -18,34 +24,30 @@ def test_create_customer_success():
         "dob": "1991-06-25",
     }
 
-    response = client.post(
-        "/api/v1/create_customer/",
+    response = api_client.post(
+        CREATE_CUSTOMER_URL,
         payload,
         format="json",
     )
 
     assert response.status_code == 201
-
     assert response.data["data"]["first_name"] == "Ben"
 
 
 @pytest.mark.django_db
-def test_future_dob():
+def test_create_customer_with_future_dob_returns_400(
+    api_client: APIClient,
+) -> None:
     """A future date of birth should be rejected with HTTP 400."""
-
-    client = APIClient()
 
     payload = {
         "first_name": "Ben",
         "last_name": "Stokes",
-        "dob": str(
-            datetime.date.today() +
-            datetime.timedelta(days=2)
-        ),
+        "dob": str(date.today() + timedelta(days=2)),
     }
 
-    response = client.post(
-        "/api/v1/create_customer/",
+    response = api_client.post(
+        CREATE_CUSTOMER_URL,
         payload,
         format="json",
     )
@@ -54,18 +56,18 @@ def test_future_dob():
 
 
 @pytest.mark.django_db
-def test_missing_first_name():
+def test_create_customer_without_first_name_returns_400(
+    api_client: APIClient,
+) -> None:
     """Omitting first_name should return HTTP 400."""
-
-    client = APIClient()
 
     payload = {
         "last_name": "Stokes",
         "dob": "1991-06-25",
     }
 
-    response = client.post(
-        "/api/v1/create_customer/",
+    response = api_client.post(
+        CREATE_CUSTOMER_URL,
         payload,
         format="json",
     )
@@ -74,18 +76,18 @@ def test_missing_first_name():
 
 
 @pytest.mark.django_db
-def test_missing_dob():
+def test_create_customer_without_dob_returns_400(
+    api_client: APIClient,
+) -> None:
     """Omitting date of birth should return HTTP 400."""
-
-    client = APIClient()
 
     payload = {
         "first_name": "Ben",
         "last_name": "Stokes",
     }
 
-    response = client.post(
-        "/api/v1/create_customer/",
+    response = api_client.post(
+        CREATE_CUSTOMER_URL,
         payload,
         format="json",
     )

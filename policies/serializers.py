@@ -11,17 +11,16 @@ class QuoteSerializer(serializers.Serializer):
     """Serializer for quote generation requests."""
 
     customer_id = serializers.IntegerField()
-
     policy_type = serializers.ChoiceField(
-        choices=Policy.PolicyType.choices
+        choices=Policy.PolicyType.choices,
     )
 
-    def validate_customer_id(self, value):
+    def validate_customer_id(self, value: int) -> int:
         """Ensure the referenced customer exists."""
 
         if not Customer.objects.filter(id=value).exists():
             raise serializers.ValidationError(
-                "Customer does not exist."
+                "Customer with the provided ID does not exist."
             )
 
         return value
@@ -37,10 +36,13 @@ class PolicyHistorySerializer(serializers.ModelSerializer):
     """Serializer for policy history records."""
 
     class Meta:
-
         model = PolicyHistory
-
-        fields = "__all__"
+        fields = (
+            "id",
+            "previous_state",
+            "new_state",
+            "changed_at",
+        )
 
 
 class PolicySerializer(serializers.ModelSerializer):
@@ -50,7 +52,6 @@ class PolicySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Policy
-
         fields = (
             "id",
             "customer",
@@ -61,7 +62,7 @@ class PolicySerializer(serializers.ModelSerializer):
             "state",
         )
 
-    def get_customer_name(self, obj):
-        """Return the full name of the policy's customer."""
+    def get_customer_name(self, obj: Policy) -> str:
+        """Return the customer's full name."""
 
         return f"{obj.customer.first_name} {obj.customer.last_name}"

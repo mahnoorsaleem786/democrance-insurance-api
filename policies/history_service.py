@@ -1,13 +1,17 @@
 """Service for recording policy state changes."""
 
-from .models import PolicyHistory
+from .models import Policy, PolicyHistory
 
 
 class PolicyHistoryService:
-    """Persists policy state transition records."""
+    """Service for persisting policy state transition records."""
 
     @staticmethod
-    def log(policy, previous_state, new_state):
+    def log(
+        policy: Policy,
+        previous_state: str,
+        new_state: str,
+    ) -> None:
         """Create a history entry for a policy state change."""
 
         PolicyHistory.objects.create(

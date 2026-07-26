@@ -1,13 +1,16 @@
 """API views for customer management."""
 
-from django.db.models import Q
+from django.db.models import Q, QuerySet
 from rest_framework import status
 from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.request import Request
 from rest_framework.response import Response
 
 from .models import Customer
 from .serializers import CustomerSerializer
+
+from common.logger import logger
 
 
 class CreateCustomerAPIView(CreateAPIView):
@@ -17,19 +20,28 @@ class CreateCustomerAPIView(CreateAPIView):
     serializer_class = CustomerSerializer
     permission_classes = [AllowAny]
 
-    def create(self, request, *args, **kwargs):
+    def create(
+        self,
+        request: Request,
+        *args,
+        **kwargs,
+    ) -> Response:
         """Validate input, persist the customer, and return a success payload."""
 
         serializer = self.get_serializer(data=request.data)
-
         serializer.is_valid(raise_exception=True)
 
         customer = serializer.save()
 
+        logger.info(
+            "Customer created successfully. Customer ID: %s",
+            customer.id,
+        )
+
         return Response(
             {
                 "message": "Customer created successfully.",
-                "data": CustomerSerializer(customer).data,
+                "data": self.get_serializer(customer).data,
             },
             status=status.HTTP_201_CREATED,
         )
@@ -41,8 +53,8 @@ class CustomerListAPIView(ListAPIView):
     serializer_class = CustomerSerializer
     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        """Filter customers by optional query parameters."""
+    def get_queryset(self) -> QuerySet[Customer]:
+        """Return customers filtered by optional query parameters."""
 
         queryset = Customer.objects.all()
 
@@ -51,8 +63,8 @@ class CustomerListAPIView(ListAPIView):
 
         if name:
             queryset = queryset.filter(
-                Q(first_name__icontains=name) |
-                Q(last_name__icontains=name)
+                Q(first_name__icontains=name)
+                | Q(last_name__icontains=name)
             )
 
         if dob:
