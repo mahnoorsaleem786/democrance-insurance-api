@@ -101,6 +101,14 @@ class AcceptQuoteAPIView(CreateAPIView):
         return Response(
             {
                 "message": "Policy activated successfully.",
+                "data": {
+                    "policy_id": policy.id,
+                    "customer_id": policy.customer.id,
+                    "policy_type": policy.policy_type,
+                    "premium": policy.premium,
+                    "cover": policy.cover,
+                    "state": policy.state,
+                },
             },
             status=status.HTTP_200_OK,
         )

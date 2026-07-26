@@ -10,3 +10,35 @@
 [2026-07-26 10:36:39,093] INFO common.logger Quote generated successfully for policy 2.
 [2026-07-26 10:36:46,223] WARNING django.request Bad Request: /api/v1/quote/accept/
 [2026-07-26 10:36:59,993] INFO common.logger Policy 2 activated successfully.
+[2026-07-26 12:46:50,078] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-07-26 12:47:39,948] WARNING django.request Unauthorized: /api/v1/create_customer/
+[2026-07-26 12:47:58,158] INFO common.logger Customer created successfully. Customer ID: 3
+[2026-07-26 12:48:46,109] INFO common.logger Quote generated successfully for policy 3.
+[2026-07-26 12:49:16,215] INFO common.logger Quote generated successfully for policy 4.
+[2026-07-26 12:49:44,441] WARNING django.request Bad Request: /api/v1/quote/accept/
+[2026-07-26 12:51:04,171] INFO common.logger Policy 4 activated successfully.
+[2026-07-26 12:54:30,711] WARNING django.request Unauthorized: /api/v1/policies/1/history/
+[2026-07-26 12:54:45,355] WARNING django.request Unauthorized: /api/v1/policies/1/history/
+[2026-07-26 13:06:10,353] INFO django.utils.autoreload /Users/apple/Desktop/democrance-insurance-api/config/settings.py changed, reloading.
+[2026-07-26 13:06:28,765] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-07-26 13:09:17,920] INFO common.logger Customer created successfully. Customer ID: 4
+[2026-07-26 13:09:22,737] INFO common.logger Quote generated successfully for policy 5.
+[2026-07-26 13:13:01,599] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-07-26 13:14:14,319] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-07-26 13:14:50,150] INFO common.logger Customer created successfully. Customer ID: 1
+[2026-07-26 13:15:16,189] INFO common.logger Quote generated successfully for policy 1.
+[2026-07-26 13:15:26,008] INFO common.logger Policy 1 activated successfully.
+[2026-07-26 13:25:06,674] INFO django.utils.autoreload /Users/apple/Desktop/democrance-insurance-api/policies/policy_service.py changed, reloading.
+[2026-07-26 13:25:07,703] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-07-26 13:25:29,676] INFO common.logger Quote generated successfully for policy 2.
+[2026-07-26 13:26:32,169] INFO common.logger Policy 2 activated successfully.
+[2026-07-26 13:41:24,061] INFO django.utils.autoreload /Users/apple/Desktop/democrance-insurance-api/policies/views.py changed, reloading.
+[2026-07-26 13:41:25,128] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-07-26 13:41:45,610] WARNING django.request Bad Request: /api/v1/quote/
+[2026-07-26 13:42:06,522] INFO common.logger Quote generated successfully for policy 3.
+[2026-07-26 13:43:00,872] INFO common.logger Policy 3 activated successfully.
+[2026-07-26 13:48:21,455] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-07-26 13:48:51,352] WARNING django.request Unauthorized: /api/token/
+[2026-07-26 13:49:12,470] INFO common.logger Customer created successfully. Customer ID: 2
+[2026-07-26 15:18:03,357] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-07-26 15:18:08,012] INFO common.logger Customer created successfully. Customer ID: 3

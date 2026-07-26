@@ -43,7 +43,7 @@ class PolicyService:
 
         PolicyHistoryService.log(
             policy=policy,
-            previous_state=None,
+            previous_state=Policy.PolicyState.NEW,
             new_state=Policy.PolicyState.QUOTED,
         )
 
