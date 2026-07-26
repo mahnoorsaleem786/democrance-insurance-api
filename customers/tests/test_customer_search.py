@@ -1,3 +1,5 @@
+"""Tests for customer search API endpoints."""
+
 import pytest
 from django.contrib.auth.models import User
 from rest_framework.test import APIClient
@@ -7,6 +9,7 @@ from customers.models import Customer
 
 @pytest.mark.django_db
 def test_search_customer_by_name():
+    """Authenticated requests should filter customers by name."""
 
     User.objects.create_user(
         username="admin",

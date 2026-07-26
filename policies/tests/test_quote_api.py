@@ -1,3 +1,5 @@
+"""Tests for quote creation API endpoints."""
+
 import pytest
 from django.contrib.auth.models import User
 from rest_framework.test import APIClient
@@ -7,8 +9,9 @@ from customers.models import Customer
 
 @pytest.mark.django_db
 def test_create_quote_success():
+    """A valid quote request should create a QUOTED policy."""
 
-    user = User.objects.create_user(
+    User.objects.create_user(
         username="admin",
         password="admin1234",
     )
@@ -48,6 +51,7 @@ def test_create_quote_success():
 
 @pytest.mark.django_db
 def test_invalid_customer():
+    """Quote requests for unknown customers should return HTTP 400."""
 
     User.objects.create_user(
         username="admin",

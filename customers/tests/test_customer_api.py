@@ -1,10 +1,14 @@
+"""Tests for customer creation API endpoints."""
+
 import datetime
+
 import pytest
 from rest_framework.test import APIClient
 
 
 @pytest.mark.django_db
 def test_create_customer_success():
+    """A valid payload should create a customer and return HTTP 201."""
 
     client = APIClient()
 
@@ -24,8 +28,10 @@ def test_create_customer_success():
 
     assert response.data["data"]["first_name"] == "Ben"
 
+
 @pytest.mark.django_db
 def test_future_dob():
+    """A future date of birth should be rejected with HTTP 400."""
 
     client = APIClient()
 
@@ -46,8 +52,10 @@ def test_future_dob():
 
     assert response.status_code == 400
 
+
 @pytest.mark.django_db
 def test_missing_first_name():
+    """Omitting first_name should return HTTP 400."""
 
     client = APIClient()
 
@@ -64,8 +72,10 @@ def test_missing_first_name():
 
     assert response.status_code == 400
 
+
 @pytest.mark.django_db
 def test_missing_dob():
+    """Omitting date of birth should return HTTP 400."""
 
     client = APIClient()
 

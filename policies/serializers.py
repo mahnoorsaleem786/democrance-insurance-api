@@ -1,10 +1,14 @@
+"""Serializers for policy and quote API endpoints."""
+
 from rest_framework import serializers
 
 from customers.models import Customer
+
 from .models import Policy, PolicyHistory
 
 
 class QuoteSerializer(serializers.Serializer):
+    """Serializer for quote generation requests."""
 
     customer_id = serializers.IntegerField()
 
@@ -13,6 +17,7 @@ class QuoteSerializer(serializers.Serializer):
     )
 
     def validate_customer_id(self, value):
+        """Ensure the referenced customer exists."""
 
         if not Customer.objects.filter(id=value).exists():
             raise serializers.ValidationError(
@@ -20,14 +25,16 @@ class QuoteSerializer(serializers.Serializer):
             )
 
         return value
-    
+
 
 class AcceptQuoteSerializer(serializers.Serializer):
+    """Serializer for quote acceptance requests."""
 
     policy_id = serializers.IntegerField()
 
 
 class PolicyHistorySerializer(serializers.ModelSerializer):
+    """Serializer for policy history records."""
 
     class Meta:
 
@@ -37,6 +44,7 @@ class PolicyHistorySerializer(serializers.ModelSerializer):
 
 
 class PolicySerializer(serializers.ModelSerializer):
+    """Serializer for listing policies with customer details."""
 
     customer_name = serializers.SerializerMethodField()
 
@@ -54,4 +62,6 @@ class PolicySerializer(serializers.ModelSerializer):
         )
 
     def get_customer_name(self, obj):
+        """Return the full name of the policy's customer."""
+
         return f"{obj.customer.first_name} {obj.customer.last_name}"

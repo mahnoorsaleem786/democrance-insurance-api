@@ -1,23 +1,24 @@
-from rest_framework import status
-from rest_framework.generics import CreateAPIView, ListAPIView
-from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
+"""API views for customer management."""
 
 from django.db.models import Q
-from rest_framework.permissions import IsAuthenticated
-
+from rest_framework import status
+from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
 
 from .models import Customer
 from .serializers import CustomerSerializer
 
 
 class CreateCustomerAPIView(CreateAPIView):
+    """Create a new customer record."""
 
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
+        """Validate input, persist the customer, and return a success payload."""
 
         serializer = self.get_serializer(data=request.data)
 
@@ -32,13 +33,17 @@ class CreateCustomerAPIView(CreateAPIView):
             },
             status=status.HTTP_201_CREATED,
         )
-    
+
 
 class CustomerListAPIView(ListAPIView):
+    """List customers with optional name and date-of-birth filters."""
+
     serializer_class = CustomerSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        """Filter customers by optional query parameters."""
+
         queryset = Customer.objects.all()
 
         name = self.request.query_params.get("name")

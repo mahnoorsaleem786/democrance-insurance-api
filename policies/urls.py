@@ -1,6 +1,9 @@
+"""URL routes for policy-related API endpoints."""
+
 from django.urls import path
 
-from .views import CreateQuoteAPIView, AcceptQuoteAPIView, PolicyHistoryAPIView, PolicyListAPIView
+from .views import (AcceptQuoteAPIView, CreateQuoteAPIView,
+                    PolicyHistoryAPIView, PolicyListAPIView)
 
 urlpatterns = [
     path(

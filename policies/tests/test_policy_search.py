@@ -1,3 +1,5 @@
+"""Tests for policy search API endpoints."""
+
 import pytest
 from django.contrib.auth.models import User
 from rest_framework.test import APIClient
@@ -8,6 +10,7 @@ from policies.models import Policy
 
 @pytest.mark.django_db
 def test_search_policy_by_type():
+    """Authenticated requests should filter policies by type."""
 
     User.objects.create_user(
         username="admin",

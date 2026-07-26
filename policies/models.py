@@ -1,8 +1,12 @@
+"""Policy and policy history model definitions."""
+
 from django.db import models
+
 from customers.models import Customer
 
 
 class Policy(models.Model):
+    """Represents an insurance policy linked to a customer."""
 
     class PolicyType(models.TextChoices):
         PERSONAL_ACCIDENT = "personal-accident", "Personal Accident"
@@ -50,9 +54,10 @@ class Policy(models.Model):
 
     def __str__(self):
         return f"{self.customer} - {self.policy_type}"
-    
+
 
 class PolicyHistory(models.Model):
+    """Audit log entry for policy state transitions."""
 
     policy = models.ForeignKey(
         Policy,

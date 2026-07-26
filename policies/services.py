@@ -1,10 +1,15 @@
+"""Business logic for insurance quote calculations."""
+
 from datetime import date
 
 
 class QuoteService:
+    """Calculates premiums and cover amounts based on customer age."""
 
     @staticmethod
     def calculate_age(dob):
+        """Return the customer's age in full years as of today."""
+
         today = date.today()
 
         return (
@@ -18,6 +23,7 @@ class QuoteService:
 
     @staticmethod
     def calculate_quote(customer):
+        """Return premium and cover values for the given customer."""
 
         age = QuoteService.calculate_age(customer.dob)
 

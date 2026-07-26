@@ -1,8 +1,12 @@
-from django.db import models
+"""Customer model definitions."""
+
 from django.core.validators import MinLengthValidator
+from django.db import models
 
 
 class Customer(models.Model):
+    """Represents an insurance customer."""
+
     first_name = models.CharField(
         max_length=100,
         validators=[MinLengthValidator(2)]

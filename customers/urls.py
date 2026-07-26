@@ -1,3 +1,5 @@
+"""URL routes for customer-related API endpoints."""
+
 from django.urls import path
 
 from .views import CreateCustomerAPIView, CustomerListAPIView

@@ -1,9 +1,13 @@
+"""Admin configuration for policy models."""
+
 from django.contrib import admin
+
 from .models import Policy, PolicyHistory
 
 
 @admin.register(Policy)
 class PolicyAdmin(admin.ModelAdmin):
+    """Admin interface for the Policy model."""
 
     list_display = (
         "id",
@@ -28,6 +32,7 @@ class PolicyAdmin(admin.ModelAdmin):
 
 @admin.register(PolicyHistory)
 class PolicyHistoryAdmin(admin.ModelAdmin):
+    """Admin interface for the PolicyHistory model."""
 
     list_display = (
         "policy",
