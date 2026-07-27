@@ -62,7 +62,7 @@ Example:
 
 | Previous State | New State |
 |---------------|-----------|
-| NULL | QUOTED |
+| NEW | QUOTED |
 | QUOTED | ACTIVE |
 
 ---
